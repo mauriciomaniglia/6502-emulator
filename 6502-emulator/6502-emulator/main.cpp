@@ -3,6 +3,20 @@
 using Byte = unsigned char;
 using Word = unsigned short;
 
+using u32 = unsigned int;
+
+struct Memory {
+    static constexpr u32 MAX_MEM = 1024 * 64;
+
+    Byte Data[MAX_MEM];
+
+    void Initialize() {
+        for (u32 i =0; i < MAX_MEM; i++) {
+            Data[i] = 0;
+        }
+    }
+};
+
 struct CPU {
     Word PC;        // program counter
     Word SP;        // stack pointer
@@ -19,7 +33,7 @@ struct CPU {
     Byte V : 1;
     Byte N : 1;
 
-    void Reset() {
+    void Reset(Memory& memory) {
         PC = 0xFFFC;
         SP = 0x0100;
 
@@ -35,11 +49,14 @@ struct CPU {
         B = 0;
         V = 0;
         N = 0;
+
+        memory.Initialize();
     }
 };
 
 int main(int argc, const char * argv[]) {
+    Memory memory;
     CPU cpu;
-    cpu.Reset()
+    cpu.Reset(memory);
     return 0;
 }
