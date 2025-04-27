@@ -15,6 +15,11 @@ struct Memory {
             Data[i] = 0;
         }
     }
+
+    // read 1 byte
+    Byte operator[](u32 address) const {
+        return Data[address];
+    }
 };
 
 struct CPU {
@@ -52,11 +57,25 @@ struct CPU {
 
         memory.Initialize();
     }
+
+    Byte FetchByte(u32& cycles, Memory& memory) {
+        Byte Data = memory[PC];
+        PC++;
+
+        return Data;
+    }
+
+    void Execute(u32 cycles, Memory& memory) {
+        while (cycles > 0) {
+            Byte Instruction = FetchByte(cycles, memory);
+        }
+    }
 };
 
 int main(int argc, const char * argv[]) {
     Memory memory;
     CPU cpu;
     cpu.Reset(memory);
+    cpu.Execute(2, memory);
     return 0;
 }
