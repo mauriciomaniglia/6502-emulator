@@ -65,9 +65,23 @@ struct CPU {
         return Data;
     }
 
+    // opcodes
+    static constexpr Byte INS_LDA_IM = 0xA9;
+
     void Execute(u32 cycles, Memory& memory) {
         while (cycles > 0) {
-            Byte Instruction = FetchByte(cycles, memory);
+            Byte Ins = FetchByte(cycles, memory);
+
+            switch (Ins)
+            {
+                case INS_LDA_IM:
+                {
+                    Byte Value = FetchByte(cycles, memory);
+                    A = Value;
+                    Z = (A == 0);
+                    N = (A & 0b10000000) > 0;
+                }
+            }
         }
     }
 };
