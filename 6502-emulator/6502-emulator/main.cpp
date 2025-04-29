@@ -61,12 +61,25 @@ struct CPU {
     Byte FetchByte(u32& cycles, Memory& memory) {
         Byte Data = memory[PC];
         PC++;
-
+        cycles--;
         return Data;
     }
 
+    Byte ReadByte(u32& cycles, Byte address, Memory& memory) {
+        Byte Data = memory[address];
+        cycles--;
+        return Data;
+    }
+
+    void LDASetStatus() {
+        Z = (A == 0);
+        N = (A & 0b10000000) > 0;
+    }
+
     // opcodes
-    static constexpr Byte INS_LDA_IM = 0xA9;
+    static constexpr Byte
+        INS_LDA_IM = 0xA9,
+        INS_LDA_ZP = 0xA5;
 
     void Execute(u32 cycles, Memory& memory) {
         while (cycles > 0) {
@@ -78,8 +91,17 @@ struct CPU {
                 {
                     Byte Value = FetchByte(cycles, memory);
                     A = Value;
-                    Z = (A == 0);
-                    N = (A & 0b10000000) > 0;
+                    LDASetStatus();
+                }
+                case INS_LDA_ZP:
+                {
+                    Byte ZeroPageAddress = FetchByte(cycles, memory);
+                    A = ReadByte(cycles, ZeroPageAddress, memory);
+                    LDASetStatus();
+                }
+                default:
+                {
+                    printf("Instruction not handled %d", Ins);
                 }
             }
         }
