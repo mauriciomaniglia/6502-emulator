@@ -20,6 +20,13 @@ struct Memory {
     Byte operator[](u32 address) const {
         return Data[address];
     }
+
+    // write 2 bytes
+    void WriteWord(Word value, u32 address, u32& cycles) {
+        Data[address]       = value & 0xFF;
+        Data[address+1]     = (value >> 8);
+        cycles -= 2;
+    }
 };
 
 struct CPU {
@@ -65,6 +72,19 @@ struct CPU {
         return Data;
     }
 
+    Byte FetchWord(u32& cycles, Memory& memory) {
+        // 6502 is little endia
+        Word Data = memory[PC];
+        PC++;
+
+        Data |= (memory[PC] << 8);
+        PC++;
+
+        cycles += 2;
+
+        return Data;
+    }
+
     Byte ReadByte(u32& cycles, Byte address, Memory& memory) {
         Byte Data = memory[address];
         cycles--;
@@ -80,7 +100,8 @@ struct CPU {
     static constexpr Byte
         INS_LDA_IM = 0xA9,
         INS_LDA_ZP = 0xA5,
-        INS_LDA_ZPX = 0xB5;
+        INS_LDA_ZPX = 0xB5,
+        INS_JSR = 0x20;
 
     void Execute(u32 cycles, Memory& memory) {
         while (cycles > 0) {
@@ -108,6 +129,13 @@ struct CPU {
                     A = ReadByte(cycles, ZeroPageAddress, memory);
                     LDASetStatus();
                 } break;
+                case INS_JSR:
+                {
+                    Word SubAddr = FetchWord(cycles, memory);
+                    memory.WriteWord(PC - 1, SP, cycles);
+                    PC = SubAddr;
+                    cycles--;
+                }
                 default:
                 {
                     printf("Instruction not handled %d", Ins);
