@@ -5,31 +5,36 @@ using Word = unsigned short;
 
 using u32 = unsigned int;
 
-struct Memory {
+struct Memory
+{
     static constexpr u32 MAX_MEM = 1024 * 64;
 
-    Byte Data[MAX_MEM];
+    Byte data[MAX_MEM];
 
-    void Initialize() {
+    void initialize()
+    {
         for (u32 i =0; i < MAX_MEM; i++) {
-            Data[i] = 0;
+            data[i] = 0;
         }
     }
 
     // read 1 byte
-    Byte operator[](u32 address) const {
-        return Data[address];
+    Byte operator[](u32 address) const
+    {
+        return data[address];
     }
 
     // write 2 bytes
-    void WriteWord(Word value, u32 address, u32& cycles) {
-        Data[address]       = value & 0xFF;
-        Data[address+1]     = (value >> 8);
+    void writeWord(Word value, u32 address, u32& cycles)
+    {
+        data[address]       = value & 0xFF;
+        data[address+1]     = (value >> 8);
         cycles -= 2;
     }
 };
 
-struct CPU {
+struct CPU
+{
     Word PC;        // program counter
     Word SP;        // stack pointer
 
@@ -45,7 +50,8 @@ struct CPU {
     Byte V : 1;
     Byte N : 1;
 
-    void Reset(Memory& memory) {
+    void reset(Memory& memory)
+    {
         PC = 0xFFFC;
         SP = 0x0100;
 
@@ -62,36 +68,40 @@ struct CPU {
         V = 0;
         N = 0;
 
-        memory.Initialize();
+        memory.initialize();
     }
 
-    Byte FetchByte(u32& cycles, Memory& memory) {
-        Byte Data = memory[PC];
+    Byte fetchByte(u32& cycles, Memory& memory)
+    {
+        Byte data = memory[PC];
         PC++;
         cycles--;
-        return Data;
+        return data;
     }
 
-    Byte FetchWord(u32& cycles, Memory& memory) {
+    Byte fetchWord(u32& cycles, Memory& memory)
+    {
         // 6502 is little endia
-        Word Data = memory[PC];
+        Word data = memory[PC];
         PC++;
 
-        Data |= (memory[PC] << 8);
+        data |= (memory[PC] << 8);
         PC++;
 
         cycles += 2;
 
-        return Data;
+        return data;
     }
 
-    Byte ReadByte(u32& cycles, Byte address, Memory& memory) {
-        Byte Data = memory[address];
+    Byte readByte(u32& cycles, Byte address, Memory& memory)
+    {
+        Byte data = memory[address];
         cycles--;
-        return Data;
+        return data;
     }
 
-    void LDASetStatus() {
+    void LDASetStatus()
+    {
         Z = (A == 0);
         N = (A & 0b10000000) > 0;
     }
@@ -103,52 +113,55 @@ struct CPU {
         INS_LDA_ZPX = 0xB5,
         INS_JSR = 0x20;
 
-    void Execute(u32 cycles, Memory& memory) {
-        while (cycles > 0) {
-            Byte Ins = FetchByte(cycles, memory);
+    void execute(u32 cycles, Memory& memory)
+    {
+        while (cycles > 0)
+        {
+            Byte ins = fetchByte(cycles, memory);
 
-            switch (Ins)
+            switch (ins)
             {
                 case INS_LDA_IM:
                 {
-                    Byte Value = FetchByte(cycles, memory);
-                    A = Value;
+                    Byte value = fetchByte(cycles, memory);
+                    A = value;
                     LDASetStatus();
                 } break;
                 case INS_LDA_ZP:
                 {
-                    Byte ZeroPageAddress = FetchByte(cycles, memory);
-                    A = ReadByte(cycles, ZeroPageAddress, memory);
+                    Byte zeroPageAddress = fetchByte(cycles, memory);
+                    A = readByte(cycles, zeroPageAddress, memory);
                     LDASetStatus();
                 } break;
                 case INS_LDA_ZPX:
                 {
-                    Byte ZeroPageAddress = FetchByte(cycles, memory);
-                    ZeroPageAddress += X;
+                    Byte zeroPageAddress = fetchByte(cycles, memory);
+                    zeroPageAddress += X;
                     cycles--;
-                    A = ReadByte(cycles, ZeroPageAddress, memory);
+                    A = readByte(cycles, zeroPageAddress, memory);
                     LDASetStatus();
                 } break;
                 case INS_JSR:
                 {
-                    Word SubAddr = FetchWord(cycles, memory);
-                    memory.WriteWord(PC - 1, SP, cycles);
-                    PC = SubAddr;
+                    Word subAddr = fetchWord(cycles, memory);
+                    memory.writeWord(PC - 1, SP, cycles);
+                    PC = subAddr;
                     cycles--;
                 }
                 default:
                 {
-                    printf("Instruction not handled %d", Ins);
+                    printf("Instruction not handled %d", ins);
                 } break;
             }
         }
     }
 };
 
-int main(int argc, const char * argv[]) {
+int main(int argc, const char * argv[])
+{
     Memory memory;
     CPU cpu;
-    cpu.Reset(memory);
-    cpu.Execute(2, memory);
+    cpu.reset(memory);
+    cpu.execute(2, memory);
     return 0;
 }
