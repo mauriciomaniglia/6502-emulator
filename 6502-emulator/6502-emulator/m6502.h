@@ -82,7 +82,7 @@ struct CPU
         return data;
     }
 
-    Byte fetchWord(u32& cycles, Memory& memory)
+    Word fetchWord(u32& cycles, Memory& memory)
     {
         // 6502 is little endia
         Word data = memory[PC];
@@ -91,7 +91,7 @@ struct CPU
         data |= (memory[PC] << 8);
         PC++;
 
-        cycles += 2;
+        cycles -= 2;
 
         return data;
     }
