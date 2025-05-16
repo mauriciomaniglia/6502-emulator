@@ -6,6 +6,16 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXContainerItemProxy section */
+		F9E4D86E2DD60234001A22A9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F98D0FC42DBE6197009045CD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F98D0FCB2DBE6197009045CD;
+			remoteInfo = "6502-emulator";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		F98D0FCA2DBE6197009045CD /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -20,18 +30,44 @@
 
 /* Begin PBXFileReference section */
 		F98D0FCC2DBE6197009045CD /* 6502-emulator */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "6502-emulator"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9E4D8672DD6021C001A22A9 /* 6502-emulator-test.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "6502-emulator-test.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		F9E4D8762DD60470001A22A9 /* Exceptions for "6502-emulator" folder in "Compile Sources" phase from "6502-emulator" target */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = F98D0FC82DBE6197009045CD /* Sources */;
+			membershipExceptions = (
+				m6502.h,
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		F98D0FCE2DBE6197009045CD /* 6502-emulator */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				F9E4D8762DD60470001A22A9 /* Exceptions for "6502-emulator" folder in "Compile Sources" phase from "6502-emulator" target */,
+			);
 			path = "6502-emulator";
+			sourceTree = "<group>";
+		};
+		F9E4D8682DD6021C001A22A9 /* 6502-emulator-test */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "6502-emulator-test";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		F98D0FC92DBE6197009045CD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F9E4D8642DD6021C001A22A9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -45,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				F98D0FCE2DBE6197009045CD /* 6502-emulator */,
+				F9E4D8682DD6021C001A22A9 /* 6502-emulator-test */,
 				F98D0FCD2DBE6197009045CD /* Products */,
 			);
 			sourceTree = "<group>";
@@ -53,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				F98D0FCC2DBE6197009045CD /* 6502-emulator */,
+				F9E4D8672DD6021C001A22A9 /* 6502-emulator-test.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -82,6 +120,29 @@
 			productReference = F98D0FCC2DBE6197009045CD /* 6502-emulator */;
 			productType = "com.apple.product-type.tool";
 		};
+		F9E4D8662DD6021C001A22A9 /* 6502-emulator-test */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F9E4D86D2DD6021C001A22A9 /* Build configuration list for PBXNativeTarget "6502-emulator-test" */;
+			buildPhases = (
+				F9E4D8632DD6021C001A22A9 /* Sources */,
+				F9E4D8642DD6021C001A22A9 /* Frameworks */,
+				F9E4D8652DD6021C001A22A9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F9E4D86F2DD60234001A22A9 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				F9E4D8682DD6021C001A22A9 /* 6502-emulator-test */,
+			);
+			name = "6502-emulator-test";
+			packageProductDependencies = (
+			);
+			productName = "6502-emulator-test";
+			productReference = F9E4D8672DD6021C001A22A9 /* 6502-emulator-test.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -92,6 +153,9 @@
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
 					F98D0FCB2DBE6197009045CD = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					F9E4D8662DD6021C001A22A9 = {
 						CreatedOnToolsVersion = 16.2;
 					};
 				};
@@ -111,9 +175,20 @@
 			projectRoot = "";
 			targets = (
 				F98D0FCB2DBE6197009045CD /* 6502-emulator */,
+				F9E4D8662DD6021C001A22A9 /* 6502-emulator-test */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F9E4D8652DD6021C001A22A9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F98D0FC82DBE6197009045CD /* Sources */ = {
@@ -123,7 +198,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F9E4D8632DD6021C001A22A9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F9E4D86F2DD60234001A22A9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F98D0FCB2DBE6197009045CD /* 6502-emulator */;
+			targetProxy = F9E4D86E2DD60234001A22A9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		F98D0FD12DBE6197009045CD /* Debug */ = {
@@ -257,6 +347,36 @@
 			};
 			name = Release;
 		};
+		F9E4D86B2DD6021C001A22A9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/6502-emulator";
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/6502-emulator";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "mauricio-maniglia.-502-emulator-test";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+			};
+			name = Debug;
+		};
+		F9E4D86C2DD6021C001A22A9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/6502-emulator";
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/6502-emulator";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "mauricio-maniglia.-502-emulator-test";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -274,6 +394,15 @@
 			buildConfigurations = (
 				F98D0FD42DBE6197009045CD /* Debug */,
 				F98D0FD52DBE6197009045CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F9E4D86D2DD6021C001A22A9 /* Build configuration list for PBXNativeTarget "6502-emulator-test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F9E4D86B2DD6021C001A22A9 /* Debug */,
+				F9E4D86C2DD6021C001A22A9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
