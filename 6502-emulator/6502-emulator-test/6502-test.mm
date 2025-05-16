@@ -26,9 +26,10 @@ CPU cpu;
 
     // When
     CPU cpuCopy = cpu;
-    cpu.execute(2, memory);
+    s32 cyclesUsed = cpu.execute(2, memory);
 
     // Then
+    XCTAssertEqual(cyclesUsed, 2);
     XCTAssertEqual(cpu.A, 0x84);
     XCTAssertFalse(cpu.Z);
     XCTAssertTrue(cpu.N);
@@ -47,9 +48,10 @@ CPU cpu;
 
     // When
     CPU cpuCopy = cpu;
-    cpu.execute(3, memory);
+    s32 cyclesUsed = cpu.execute(3, memory);
 
     // Then
+    XCTAssertEqual(cyclesUsed, 3);
     XCTAssertEqual(cpu.A, 0x37);
     XCTAssertFalse(cpu.Z);
     XCTAssertFalse(cpu.N);
@@ -69,9 +71,10 @@ CPU cpu;
 
     // When
     CPU cpuCopy = cpu;
-    cpu.execute(4, memory);
+    s32 cyclesUsed = cpu.execute(4, memory);
 
     // Then
+    XCTAssertEqual(cyclesUsed, 4);
     XCTAssertEqual(cpu.A, 0x37);
     XCTAssertFalse(cpu.Z);
     XCTAssertFalse(cpu.N);
@@ -91,9 +94,10 @@ CPU cpu;
 
     // When
     CPU cpuCopy = cpu;
-    cpu.execute(4, memory);
+    s32 cyclesUsed = cpu.execute(4, memory);
 
     // Then
+    XCTAssertEqual(cyclesUsed, 4);
     XCTAssertEqual(cpu.A, 0x37);
     XCTAssertFalse(cpu.Z);
     XCTAssertFalse(cpu.N);

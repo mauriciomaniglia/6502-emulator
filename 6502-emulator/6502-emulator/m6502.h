@@ -2,6 +2,7 @@ using Byte = unsigned char;
 using Word = unsigned short;
 
 using u32 = unsigned int;
+using s32 = signed int;
 
 struct Memory
 {
@@ -116,8 +117,11 @@ struct CPU
         INS_LDA_ZPX = 0xB5,
         INS_JSR = 0x20;
 
-    void execute(u32 cycles, Memory& memory)
+    // ** @return the number of cycles that were used */
+    s32 execute(u32 cycles, Memory& memory)
     {
+        const s32 cyclesRequested = cycles;
+
         while (cycles > 0)
         {
             Byte ins = fetchByte(cycles, memory);
@@ -157,5 +161,9 @@ struct CPU
                 } break;
             }
         }
+
+        const s32 numberOfCyclesUsed = cyclesRequested - cycles;
+
+        return numberOfCyclesUsed;
     }
 };
