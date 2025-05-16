@@ -82,4 +82,26 @@ CPU cpu;
     XCTAssertEqual(cpu.V, cpuCopy.V);
 }
 
+- (void)test_LDAZeroPageX_canLoadAValueIntoTheARegisterWhenItWraps {
+    // Given
+    cpu.X = 0xFF;
+    memory[0xFFFC] = CPU::INS_LDA_ZPX;
+    memory[0xFFFD] = 0x80;
+    memory[0x007F] = 0x37;
+
+    // When
+    CPU cpuCopy = cpu;
+    cpu.execute(4, memory);
+
+    // Then
+    XCTAssertEqual(cpu.A, 0x37);
+    XCTAssertFalse(cpu.Z);
+    XCTAssertFalse(cpu.N);
+    XCTAssertEqual(cpu.C, cpuCopy.C);
+    XCTAssertEqual(cpu.I, cpuCopy.I);
+    XCTAssertEqual(cpu.D, cpuCopy.D);
+    XCTAssertEqual(cpu.B, cpuCopy.B);
+    XCTAssertEqual(cpu.V, cpuCopy.V);
+}
+
 @end
