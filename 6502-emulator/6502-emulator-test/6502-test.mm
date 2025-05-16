@@ -31,4 +31,17 @@ CPU cpu;
     XCTAssertEqual(cpu.A, 0x84);
 }
 
+- (void)test_LDAZeroPage_canLoadAValueIntoTheARegister {
+    // Given
+    memory[0xFFFC] = CPU::INS_LDA_ZP;
+    memory[0xFFFD] = 0x42;
+    memory[0x0042] = 0x37;
+
+    // When
+    cpu.execute(3, memory);
+
+    // Then
+    XCTAssertEqual(cpu.A, 0x37);
+}
+
 @end
