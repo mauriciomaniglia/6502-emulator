@@ -1,4 +1,11 @@
+# Xcode
 *.xcodeproj/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcuserdata/  # Add this for nested workspace user data
+*.xcworkspace/xcuserdata/                  # For standalone workspaces
+*.xcuserstate                             # Catch-all for user state files
+.DS_Store                                 # macOS Finder metadata
+DerivedData/                              # Xcode build data
+build/                                    # Build output directory
 
 # Prerequisites
 *.d
